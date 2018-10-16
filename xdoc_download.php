@@ -30,7 +30,7 @@ header('Content-Disposition: attachment; filename="'.basename($file).'"');
 header('Expires: 0');
 header('Cache-Control: must-revalidate');
 header('Pragma: public');
-if ($fsize !== 0 && $fize !== false) header('Content-Length: ' .$fsize);
+if ($fsize !== 0 && $fsize !== false) header('Content-Length: ' .$fsize);
 ob_clean();
 flush();
 readfile($file);
