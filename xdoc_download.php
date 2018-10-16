@@ -16,19 +16,22 @@ if ((strpos($filename,'$SSW') === false)) {
 }
 
 $file=str_replace('$SSW',"$SSW",$filename);
-//$fsize=filesize($file);  
+$fsize=filesize($file);  
 //if ($fsize === 0) {
 // alert("Cannot determine file size.");
 // exit(1);
 //}
 
+
 header('Content-Description: File Transfer');
 header('Content-Type: application/octet-stream');
-header('Content-Disposition: attachment; filename='.basename($file));
+header('Content-Disposition: attachment; filename="'.basename($file).'"');
 header('Expires: 0');
 header('Cache-Control: must-revalidate');
 header('Pragma: public');
-//header('Content-Length: ' .$fsize);
+if ($fsize != 0) header('Content-Length: ' .$fsize);
+ob_clean();
+flush();
 readfile($file);
 exit(0);
 
