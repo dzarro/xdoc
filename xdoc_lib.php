@@ -80,7 +80,7 @@
        } 
        
        if ( $exists && ( $diff < $hour || ($_SESSION['count'] ==0) ) ) {
-	    alert('in cache...');
+	  //  alert('in cache...');
         $sub=@file($ssw_save_map);
         $count = count($sub);
 	    if ($count !== 0 && $sub !== false) return $sub;
