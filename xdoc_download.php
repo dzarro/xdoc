@@ -16,7 +16,8 @@ if ((strpos($filename,'$SSW') === false)) {
 }
 
 $file=str_replace('$SSW',"$SSW",$filename);
-$fsize=filesize($file);  
+$fsize=@filesize($file);  
+
 //if ($fsize === 0) {
 // alert("Cannot determine file size.");
 // exit(1);
@@ -29,7 +30,7 @@ header('Content-Disposition: attachment; filename="'.basename($file).'"');
 header('Expires: 0');
 header('Cache-Control: must-revalidate');
 header('Pragma: public');
-if ($fsize != 0) header('Content-Length: ' .$fsize);
+if ($fsize !== 0 && $fize !== false) header('Content-Length: ' .$fsize);
 ob_clean();
 flush();
 readfile($file);
