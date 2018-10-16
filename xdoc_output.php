@@ -1,4 +1,3 @@
-
 <?php
     
 require_once './xdoc_lib.php';  
@@ -46,4 +45,3 @@ exit(0);
 
 
 ?>
-

@@ -1,4 +1,3 @@
-
 <?php
     
 require_once './xdoc_lib.php';  
@@ -14,7 +13,5 @@ $files=get_xdoc_files();
 $out=match_files($files,$term);
 
 exit(0);
-
-
 ?>
 

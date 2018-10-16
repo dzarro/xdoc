@@ -35,6 +35,4 @@ flush();
 readfile($file);
 exit(0);
 
-
 ?>
-

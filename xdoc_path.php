@@ -32,7 +32,6 @@ foreach ($contents as $value) {
 }
 
 ?>
-
 </body>
 </html>
 

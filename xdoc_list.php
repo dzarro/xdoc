@@ -52,6 +52,5 @@ foreach ($pros as $value) {
  echo "<a href=\"$url\">$value2</a><br> \n";
 }
 ?>
-
 </body>
 </html>
