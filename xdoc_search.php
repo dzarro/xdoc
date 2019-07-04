@@ -11,7 +11,11 @@ require_once './xdoc_lib.php';
 
 <?php
 
-$filename=($_SERVER['REQUEST_METHOD'] == 'GET') ? htmlentities($_GET['file']) : htmlentities($_POST['file']);
+$filename ="";
+if (isset($_REQUEST['file'])) {
+ $filename = trim($_REQUEST['file']); 
+ $filename =filter_var($filename, FILTER_SANITIZE_STRING);
+}
 
 if (is_blank($filename)) {
  alert('Filename not entered.');
