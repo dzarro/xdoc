@@ -14,13 +14,15 @@ require_once './xdoc_lib.php';
 
 $cat="";
 $file="";
-$method=$_SERVER['REQUEST_METHOD'];
-if ($method == 'GET') {
- if (isset($_GET['cat'])) $cat=$_GET['cat']; 
- if (isset($_GET['file'])) $file=$_GET['file']; 
- } else {
- if (isset($_POST['cat'])) $cat=$_POST['cat'];
- if (isset($_POST['file'])) $file=$_POST['file']; 
+
+if (isset($_REQUEST['file'])) {
+ $file = trim($_REQUEST['file']); 
+ $file = filter_var($file, FILTER_SANITIZE_STRING);
+}
+
+if (isset($_REQUEST['cat'])) {
+ $cat = trim($_REQUEST['cat']); 
+ $cat = filter_var($cat, FILTER_SANITIZE_STRING);
 }
 
 if (is_blank($cat)) {
