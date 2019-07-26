@@ -8,11 +8,12 @@
 <META NAME="Description" CONTENT="Web interface to SolarSoft library ">
 <META NAME="Author" CONTENT="Dominic M. Zarro (dmzarro@gmail.com)">
 <link rel="stylesheet" type="text/css" href="./xdoc.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.min.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
+<script src="./jquery.ui.autocomplete.scroll.js"></script>
 <script src="./xdoc.js"></script>
 
 <title> XDOC </title>
@@ -54,6 +55,7 @@ $(function() {
 	$(".auto").autocomplete({
 		source: "./xdoc_auto.php",
 		minLength: 4,
+		maxShowItems: 10,
     select: function(event, ui) {
       var file = ui.item.value;
 	  console.log(file);

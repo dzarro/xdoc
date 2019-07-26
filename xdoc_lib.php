@@ -24,7 +24,7 @@
 /////////////////////////////////////////////////////////////////////////
 
     function match_files($files,$term)  {
-    
+   //  alert($term) ;   
      $return_arr = array();
      $count=count($files);
      if (!is_blank($term) && $count !== 0 && $files !== false)  {
@@ -123,6 +123,16 @@ function is_blank($input) {
  if (trim($input) === '') return true;
  return false;
 
+}
+
+/////////////////////////////////////////////////////////////////////////
+// Check input is a valid non-blank string
+
+function valid_str($input) {
+ if (!isset($input)) return false;
+ if (!is_string($input)) return false;
+ if (preg_match('/\S/', $input)) return true;
+ return false;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
