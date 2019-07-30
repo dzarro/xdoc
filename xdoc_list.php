@@ -40,7 +40,7 @@ if (!$contents) exit(1);
 
 $odirname=preg_quote($dirname,'/');
 
-$pros=preg_grep("/$odirname\/[^\/]*\.pro/",$contents);
+$pros=preg_grep("#$odirname\/[^\/]*\.pro#",$contents);
 if (count($pros) == 0) {
  alert("No IDL routines in directory");
  exit(1);

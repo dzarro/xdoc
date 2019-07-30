@@ -100,7 +100,7 @@
         return false;
        }
         
-       $sub=preg_grep('/^(\$SSW).*/',$contents);
+       $sub=preg_grep('#^(\$SSW).*#',$contents);
 	  // if (!is_writable($temp_dir)) {alert('Temp dir not writeable:'.$temp_dir}
        if (is_writable($temp_dir)) file_put_contents($ssw_save_map,$sub);
         
@@ -131,7 +131,7 @@ function is_blank($input) {
 function valid_str($input) {
  if (!isset($input)) return false;
  if (!is_string($input)) return false;
- if (preg_match('/\S/', $input)) return true;
+ if (preg_match('/\S/', $input) === 1) return true;
  return false;
 }
 
@@ -220,7 +220,7 @@ if (!$contents) return false;
 // find first match in SSW database
  
 $SSW=xdoc_root();
-$temp= preg_grep("/\/$file/",$contents);
+$temp= preg_grep("#\/$file#",$contents);
 $file=array_shift($temp);
 $file=str_replace('$SSW',"$SSW",$file);
 $file=trim($file);

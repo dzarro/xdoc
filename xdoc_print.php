@@ -33,11 +33,12 @@ if ($pos === false) {
 }
 
 // include IDL/SSW directories
- 
 // if $SSW is not included in filename, search SSW catalog
 
 $matches=$filename;
-if (!preg_match('/^(\$SSW).*/',$filename)) {
+$patt='#^(\$SSW).*#';
+
+if (preg_match($patt,$filename) === 0) {
 
 // read SSW database with procedure names
  
@@ -46,15 +47,15 @@ if (!preg_match('/^(\$SSW).*/',$filename)) {
 
 // find first match in SSW database
 
-
  $dfilename=preg_quote($filename,'/');
- $temp= preg_grep("/\/$dfilename/",$contents);
+ $patt="#$dfilename#";
+ $temp= preg_grep($patt,$contents);
  $matches=array_shift($temp);
 }
-        
+  
 // if $SSW is not included in filename, then bail
 
-if (!preg_match('/^(\$SSW).*/',$matches)) {
+if (preg_match($patt,$matches) === 0) {
  alert("$filename not found.");
  exit(1);
 }

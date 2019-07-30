@@ -35,11 +35,11 @@ if (is_blank($cat)) {
 $contents=get_xdoc_map('ssw_info_map.dat');
 if (!$contents) exit(1); 
 if (isset($_POST['gen'])) {
- $contents=preg_grep('/\$SSW\/gen/',$contents);
+ $contents=preg_grep("#\$SSW\/gen#",$contents);
 }
         
 if (!is_blank($file)){
- $dfile=parse_file($file);                     
+ $dfile=parse_file($file);  
  $contents=preg_grep("#\/$dfile\.pro#",$contents);
  if (count($contents) == 0) {
   alert("$file filename not found.");
@@ -50,8 +50,8 @@ if (!is_blank($file)){
 $cat=trim($cat);
 $fcat=preg_replace('/(,|\+)/',' ',$cat);
 $fcat=preg_replace('/\s+/','|',$fcat);   
-
-$matches=preg_grep("/$fcat/i",$contents);     
+ 
+$matches=preg_grep("#$fcat#i",$contents);     
 $plus=strpos($cat,'+'); 
 if ($plus !== false) {
  $chk=explode('+',$cat); 

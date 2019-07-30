@@ -31,7 +31,7 @@ $dfilename=parse_file($filename);
 $contents=get_xdoc_map();
 if (!$contents) exit(1);
 if (isset($_POST['gen'])) {
- $contents=preg_grep('/\$SSW\/gen/',$contents);
+ $contents=preg_grep("#/\$SSW\/gen#",$contents);
 }
 $matches=preg_grep("#\/$dfilename\.pro#",$contents);
 
