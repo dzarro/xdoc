@@ -8,9 +8,8 @@ exit(1);
 }
 
 $term=$_GET['term'];
-
 $files=get_xdoc_files();
-
+$term=trim($term);
 $out=match_files($files,$term);
 
 exit(0);
