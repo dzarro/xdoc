@@ -27,7 +27,7 @@
    //  alert($term) ;   
      $return_arr = array();
      $count=count($files);
-	 
+	 print_r($count);
      if (!is_blank($term) && $count !== 0 && $files !== false)  {
       $matches=preg_grep("#$term#",$files);
 	  if (count($matches) !== 0) $return_arr=$matches;
