@@ -55,10 +55,9 @@ $(function() {
 	$(".auto").autocomplete({
 		source: "./xdoc_auto.php",
 		minLength: 4,
-		maxShowItems: 10,
+     	maxShowItems: 10,
     select: function(event, ui) {
       var file = ui.item.value;
-	  console.log(file);
       var url= './xdoc_search.php?file='+file;
       window.open(url,'xdoc_mods');
       }
