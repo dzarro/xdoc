@@ -19,7 +19,7 @@
 
 if (!isset($_GET['file'])) {
  alert("Filename not entered.");
- die();
+ exit(1);
 }
 $filename=htmlentities($_GET['file']);
     
