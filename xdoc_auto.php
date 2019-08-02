@@ -2,15 +2,19 @@
     
 require_once './xdoc_lib.php';  
 
-if (!isset($_GET['term'])) {
- alert("Search term not entered.");
-exit(1);
+$term="";
+if (isset($_REQUEST['term'])) {
+ $term=$_REQUEST['term'];
+ $term = filter_var($term, FILTER_SANITIZE_STRING);
+ $term= trim($term);
 }
 
-$term=$_GET['term'];
-$files=get_xdoc_files();
-$term=trim($term);
-$out=match_files($files,$term);
+if (is_blank($term)) {
+ echo json_encode(array());
+} else {
+ $files=get_xdoc_files();
+ $out=match_files($files,$term);
+}
 
 exit(0);
 ?>

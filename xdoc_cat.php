@@ -34,18 +34,18 @@ if (is_blank($cat)) {
 
 $contents=get_xdoc_map('ssw_info_map.dat');
 if (!$contents) exit(1); 
-if (isset($_POST['gen'])) {
- $contents=preg_grep("#\$SSW\/gen#",$contents);
+if (isset($_REQUEST['gen'])) {
+ $contents=preg_grep('#\$SSW\/gen#',$contents);
 }
         
-if (!is_blank($file)){
- $dfile=parse_file($file);  
- $contents=preg_grep("#\/$dfile\.pro#",$contents);
- if (count($contents) == 0) {
-  alert("$file filename not found.");
-  exit(1);
- }
-}
+//if (!is_blank($file)){
+// $dfile=parse_file($file);  
+// $contents=preg_grep("#\/$dfile\.pro#",$contents);
+// if (count($contents) == 0) {
+//  alert("$file filename not found.");
+//  exit(1);
+// }
+//}
 
 $cat=trim($cat);
 $fcat=preg_replace('/(,|\+)/',' ',$cat);
@@ -74,14 +74,16 @@ if (count($matches) !== 0 ) {
  }
 }
 
-if ($found == 0) {
- if (is_blank($file)) {
-  alert("$cat category not found.");  
- } else {
-  alert("$cat category not found for filenames matching: $file");
- }
- exit(1);
-}
+if ($found == 0) alert("$cat category not found."); 
+
+//if ($found == 0) {
+//if (is_blank($file)) {
+//  alert("$cat category not found.");  
+// } else {
+//  alert("$cat category not found for filenames matching: $file");
+// }
+
+exit(0);
 
 ?>
 </body>

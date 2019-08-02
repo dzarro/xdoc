@@ -13,12 +13,13 @@ require_once './xdoc_lib.php';
 
 $filename ="";
 if (isset($_REQUEST['file'])) {
- $filename = trim($_REQUEST['file']); 
- $filename =filter_var($filename, FILTER_SANITIZE_STRING);
+ $filename = $_REQUEST['file']; 
+ $filename = filter_var($filename, FILTER_SANITIZE_STRING);
+ $filename = trim($filename);
 }
 
 if (is_blank($filename)) {
- alert('Filename not entered.');
+ alert('File name not entered.');
  exit(1);
 }
 
@@ -30,8 +31,8 @@ $dfilename=parse_file($filename);
 
 $contents=get_xdoc_map();
 if (!$contents) exit(1);
-if (isset($_POST['gen'])) {
- $contents=preg_grep("#/\$SSW\/gen#",$contents);
+if (isset($_REQUEST['gen'])) {
+ $contents=preg_grep('#/\$SSW\/gen#',$contents);
 }
 $matches=preg_grep("#\/$dfilename\.pro#",$contents);
 

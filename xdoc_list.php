@@ -15,10 +15,12 @@ require_once './xdoc_lib.php';
 
 // This script lists IDL procedures in a specified SSW directory
 
-// Javascript supported?
-
-
-$dirname=htmlentities($_GET['dir']);
+$dirname ="";
+if (isset($_REQUEST['dir'])) {
+ $dirname=$_REQUEST['dir'];
+ $dirname =filter_var($dirname, FILTER_SANITIZE_STRING);
+ $dirname = trim($dirname);
+}
 
 if (is_blank($dirname)) {
  alert("Directory name not entered");

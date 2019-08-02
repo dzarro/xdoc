@@ -17,12 +17,18 @@
 // and prints it.
 
 
-if (!isset($_GET['file'])) {
- alert("Filename not entered.");
+$filename ="";
+if (isset($_REQUEST['file'])) {
+ $filename=$_REQUEST['file'];
+ $filename =filter_var($filename, FILTER_SANITIZE_STRING);
+ $filename=trim($filename);
+}
+
+if (is_blank($filename)) {
+ alert('File name not entered.');
  exit(1);
 }
-$filename=htmlentities($_GET['file']);
-    
+ 
 // check for .pro extension
 
 $dfilename=$filename;
