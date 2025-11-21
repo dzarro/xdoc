@@ -4,7 +4,6 @@
 
 <?php
 
-chdir('xdoc');
 $filename = "./index.html";
 
 
