@@ -1,0 +1,6 @@
+<style>
+A {color:blue;text-decoration:none;}
+a:hover { color:red; text-decoration: underline; }
+</style>
+
+<script language="Javascript" src="./xdoc.js"></script>

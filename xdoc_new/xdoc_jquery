@@ -1,0 +1,35 @@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<script>
+$(document).ready(function () {
+	var dvar=window.parent.document.getElementById("somediv1");
+    $(".popup").click(function () {
+	  var $url=$(this).attr("href");
+	  var $height= Math.min( $(parent).height(), 500);
+	//  alert($height);
+      $(dvar).load("./xdoc_output.php?file="+$url);
+	   
+      $(dvar).dialog({
+           width: 800,
+           height: $height,
+//		    position: ['left','top'],
+//		{
+        //          my: "left center",
+        //          at: "left center"
+		//		  },
+			title:  $url.split('/').reverse()[0], 
+            modal: false,
+		//	focus: function(event,ui) {window.parent.jsUpdateSize();},
+			buttons: {
+                  Download: function() {window.location.href="./xdoc_download.php?file="+$url; },  
+                  Close: function() {$(this).dialog("close"); }
+            }
+       });
+	   
+        return false;
+    });
+});
+</script>

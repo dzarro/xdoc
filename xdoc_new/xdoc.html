@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<META NAME="Keywords" CONTENT="IDL, Javascript, PHP, CSS JQUERY">
+<META NAME="Description" CONTENT="Web interface to SolarSoft library ">
+<META NAME="Author" CONTENT="Dominic M. Zarro (dmzarro@gmail.com)">
+<link rel="stylesheet" type="text/css" href="./xdoc_main.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<script src="./xdoc.js"></script>
+
+<title> XDOC </title>
+
+</head>
+
+<body>
+
+
+ <div id="somediv1" title="" style="display:none;">
+
+</div>
+
+<div id="wrap1" >
+
+
+<b>
+<br>
+<form name ="xdoc" method="post" target="xdoc_mods">&nbsp;&nbsp; Select from list below or search by: 
+<input type="button" name="Filename" value="Filename" onClick="searchFile(this);">
+<input type="text" name="file" size=10 class="auto"> or search by: <input type="button" title='e.g. sockets, graphics' name="Category" onClick="searchFile(this);" value="Category"><input type="text" name="cat" size=8" onkeydown="handle(event,this);"> GEN only <input type="checkbox" name="gen" onClick="setGen(this.form);">
+
+</form>
+</b>
+<p>
+ </div>
+ 
+<div id="wrap2"> 
+    <iframe  id="imagepgframe"   style="border: 1px solid #111111;" name="xdoc_path" src="./xdoc_path.php"></iframe>
+</div>  
+
+<div id="wrap3"> 
+    <iframe  id="imagepgframe"  style="border: 1px solid #111111;" name="xdoc_mods" src="about:blank"></iframe>
+</div>  
+
+<script>
+
+$(function() {	
+	$(".auto").autocomplete({
+		source: "./xdoc_auto.php",
+		minLength: 3,
+    select: function(event, ui) {
+      var file = ui.item.value;
+      var url= './xdoc_search.php?file='+file;
+      window.open(url,'xdoc_mods');
+      }
+	});				
+
+});
+</script>
+
+
+<script>
+window.onload = jsUpdateSize;       // When the page first loads
+window.onresize = jsUpdateSize;     // When the page resizes
+</script>
+</body>
+</html>
