@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+
+<head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+
+<META NAME="Keywords" CONTENT="IDL, Javascript, PHP, CSS">
+<META NAME="Description" CONTENT="Web interface to SolarSoft library ">
+<META NAME="Author" CONTENT="Dominic M. Zarro">
+
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.14.1/themes/smoothness/jquery-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="./xdoc.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.14.1/jquery-ui.min.js"></script>
+
+<title> XDOC </title>
+
+</head>
+
+<body>
+
+<div id="wrap1"> 
+<b>
+<br>
+<form name ="xdoc" method="post" target="xdoc_mods">&nbsp;&nbsp; Select from list below or search by: 
+<input type="button" name="Filename" value="Filename" onClick="searchFile(this);">&nbsp<input type="text" name="file" size=10 class="auto"> or search by: <input type="button" title='e.g. sockets, graphics' name="Category" onClick="searchFile(this);" value="Category">&nbsp<input type="text" name="cat" size="10" onkeydown="handle(event,this);"> GEN only <input type="checkbox" name="gen" onClick="setGen(this.form);">
+</form>
+</b>
+<p>
+ </div>
+ 
+<div id="wrap2"> 
+    <iframe  id="imagepgframe"   style="border: 1px solid #111111;" name="xdoc_path" src="./xdoc_path.php"></iframe>
+</div>  
+
+<div id="wrap3"> 
+    <iframe  id="imagepgframe"  style="border: 1px solid #111111;" name="xdoc_mods" src="./xdoc_blank.html"></iframe>
+</div>  
+
+
+<style>
+ .ui-autocomplete {
+  max-height: 300px;
+  overflow-y: auto;
+/* prevent horizontal scrollbar */
+  overflow-x: hidden;
+/* add padding to account for vertical scrollbar */
+  padding-right: 20px;
+} 
+</style>
+
+
+<script type="text/javascript">
+$(function() {	
+	$(".auto").autocomplete({
+		source: "./xdoc_auto.php",
+		minLength: 3,
+    select: function(event, ui) {
+      var file = ui.item.value;
+      var url= './xdoc_search.php?file='+file;
+      window.open(url,'xdoc_mods');
+      }
+	});				
+
+});
+</script>
+
+<script type="text/javascript" src="./xdoc.js"></script>
+<script type="text/javascript">
+window.onload = jsUpdateSize;       // When the page first loads
+window.onresize = jsUpdateSize;     // When the page resizes
+</script>
+</body>
+</html>
