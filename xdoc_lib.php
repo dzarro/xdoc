@@ -24,13 +24,16 @@ return "https://sohoftp.nascom.nasa.gov/solarsoft";
       
 /////////////////////////////////////////////////////////////////////////
 
-    function match_files($files,$term)  {
-   //  alert($term) ;   
+    function match_files($files,$term)  {   
      $return_arr = array();
      $count=count($files);
      if (!is_blank($term) && $count !== 0 && $files !== false)  {
+     
+    //  $sites=preg_grep("#^/site#,$files);
+     // if (count($sites) 
+    
       $matches=preg_grep("#$term#",$files);
-	  if (count($matches) !== 0) $return_arr=$matches;
+      if (count($matches) !== 0) $return_arr=$matches;
      } 
      echo json_encode($return_arr);
     }
@@ -48,7 +51,6 @@ return "https://sohoftp.nascom.nasa.gov/solarsoft";
 	 }
 	 
 /////////////////////////////////////////////////////////////////////////
-
 
       function get_xdoc_map($ssw_file="ssw_map.dat")  {
       
@@ -70,42 +72,38 @@ return "https://sohoftp.nascom.nasa.gov/solarsoft";
      
        $hour=3600;       
        $diff=0;
-       
        $exists=file_exists($ssw_save_map);
-	  
-       if ($exists) {
-//		alert("Reading file"."$ssw_save_map");
-		
+       if ($exists) {		
         $diff=time()-filemtime($ssw_save_map); 
        } 
        
      //  if ( $exists && ( $diff < $hour || ($_SESSION['count'] ==0) ) ) {
-	  //  alert('in cache...');
-	if ( $exists && ( $diff < $hour) ) {
+	
+       if ( $exists && ( $diff < $hour) ) {
         $sub=@file($ssw_save_map);
         $count = count($sub);
-	if ($count !== 0 && $sub !== false) return $sub;
+        if ($count !== 0 && $sub !== false) {
+    //     alert("Used cached: "."$ssw_save_map");
+         return $sub;
+        }
        }
        
-// else read it.
-   //    alert('reading new');
+// else read it
+
+      // alert("Reading new: "."$ssw_map");
        $contents=@file($ssw_map);
        $count = count($contents);
-       if ( $count === 0 || $contents === false) {
-        if ($exists) {
-         $sub = @file($ssw_save_map);
-         $count = count($sub);
-         if ($count !== 0 && $sub !== false) return $sub;
+       if ($count !== 0 && $contents !== false) {
+        $sub=preg_grep('#^(\$SSW).+#',$contents);
+        $sub=preg_grep('#(\/site)#',$sub,PREG_GREP_INVERT);
+        if (is_writable($temp_dir)) {
+       //  alert("Saving to: "."$ssw_save_map");
+         file_put_contents($ssw_save_map,$sub);
         }
-        alert('Problem reading remote SSW catalog file '."$ssw_map");
-        return false;
+        return $sub;
        }
-        
-       $sub=preg_grep('#^(\$SSW).*#',$contents);
-	  // if (!is_writable($temp_dir)) {alert('Temp dir not writeable:'.$temp_dir}
-       if (is_writable($temp_dir)) file_put_contents($ssw_save_map,$sub);
-        
-       return $sub;    
+       alert('Problem reading remote SSW catalog file '."$ssw_map");
+       return false;               
       }    
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // PHP alert 
@@ -165,8 +163,8 @@ function get_xdoc_files() {
        
        $hour=3600;       
        $diff=0;
-	 //  print_r($ssw_list);
        $exists=file_exists($ssw_list);
+      
        if ($exists) $diff=time()-filemtime($ssw_list); 
        
        if (($exists) && ($diff < $hour)) {
@@ -180,9 +178,6 @@ function get_xdoc_files() {
        $contents=get_xdoc_map();
        $count = count($contents);
        if ($count !== 0 && $contents !== false) {
-		   
-		
-	//	print_r($contents);
         $files=array_map('rem_ext',$contents);
         $files = array_keys(array_flip($files));
 		sort($files);
