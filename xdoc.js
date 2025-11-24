@@ -4,6 +4,10 @@ function setGen(form)
  document.xdoc.action ="./xdoc_path.php";
  document.xdoc.target="xdoc_path";
  document.xdoc.submit();
+ 
+ document.xdoc.action ="./xdoc_blank.php";
+ document.xdoc.target ="xdoc_mods";
+ document.xdoc.submit();
 
  var input1=form.cat.value;
  var input2=form.file.value;

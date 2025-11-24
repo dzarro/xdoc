@@ -64,10 +64,10 @@ return "https://sohoftp.nascom.nasa.gov/solarsoft";
        
        $ssw_gen="/gen/setup";
        $ssw_dir=xdoc_root().$ssw_gen;
+       $ssw_map=$ssw_dir.'/'.$ssw_file;
        $temp_dir=sys_get_temp_dir();   
        $ssw_save_map = $temp_dir.'/'.$ssw_file;
-       $ssw_map=$ssw_dir.'/'.$ssw_file;
-      
+       
  // check if recent map file is saved.
      
        $hour=3600;       
@@ -90,14 +90,12 @@ return "https://sohoftp.nascom.nasa.gov/solarsoft";
        
 // else read it
 
-      // alert("Reading new: "."$ssw_map");
        $contents=@file($ssw_map);
        $count = count($contents);
        if ($count !== 0 && $contents !== false) {
         $sub=preg_grep('#^(\$SSW).+#',$contents);
         $sub=preg_grep('#(\/site)#',$sub,PREG_GREP_INVERT);
         if (is_writable($temp_dir)) {
-       //  alert("Saving to: "."$ssw_save_map");
          file_put_contents($ssw_save_map,$sub);
         }
         return $sub;
@@ -165,7 +163,9 @@ function get_xdoc_files() {
        $diff=0;
        $exists=file_exists($ssw_list);
       
-       if ($exists) $diff=time()-filemtime($ssw_list); 
+       if ($exists) {
+        $diff=time()-filemtime($ssw_list); 
+       }
        
        if (($exists) && ($diff < $hour)) {
         $files=@file($ssw_list);
@@ -178,10 +178,10 @@ function get_xdoc_files() {
        $contents=get_xdoc_map();
        $count = count($contents);
        if ($count !== 0 && $contents !== false) {
-        $files=array_map('rem_ext',$contents);
-        $files = array_keys(array_flip($files));
-		sort($files);
-        if (is_writable($temp_dir)) file_put_contents($ssw_list,$files);
+        $files=extract_files($contents);
+        if (is_writable($temp_dir)) {
+         file_put_contents($ssw_list,$files);
+        }
         return $files;
        }
        
@@ -190,6 +190,16 @@ function get_xdoc_files() {
        
       }    
 ////////////////////////////////////////////////////////////////////////////
+
+function extract_files($contents) {
+  $files=array_map('rem_ext',$contents);
+  $files = array_keys(array_flip($files));
+  sort($files);
+  return $files;
+  
+}
+
+//////////////////////////////////////////////////////////////////////////////
 
 function rem_ext($file)
 {

@@ -33,6 +33,7 @@ if ((strpos($dirname,'$SSW') === false) && (strpos($dirname,'$IDL_DIR') === fals
 
 $dirname=trim($dirname);
 $contents= get_xdoc_map();
+
 if (!$contents) exit(1);
 
 // extract matching pro names
