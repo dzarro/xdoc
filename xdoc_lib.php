@@ -11,7 +11,7 @@ return "https://sohoftp.nascom.nasa.gov/solarsoft";
       function IsURL($url) {
 	   $cmp = parse_url($url);
        return isset($cmp["host"]);
-	  }
+      }
 	  
 ///////////////////////////////////////////////////////////////////////////
       function URLIsValid($URL){
@@ -48,7 +48,7 @@ return "https://sohoftp.nascom.nasa.gov/solarsoft";
       if (count($match) !== 0) return 0;
 	    if (isset($data['Content-Length'])) return (int) $data['Content-Length'];
       return 0;
-	 }
+     }
 	 
 /////////////////////////////////////////////////////////////////////////
 
@@ -106,8 +106,7 @@ return "https://sohoftp.nascom.nasa.gov/solarsoft";
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // PHP alert 
 
-      function alert($message)
-      {
+      function alert($message) {
        if (is_string($message)) echo "<script language = 'javascript'>alert('$message');</script>";
       }
 
@@ -131,11 +130,10 @@ function valid_str($input) {
  if (preg_match('/\S/', $input) === 1) return true;
  return false;
 }
-
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-function parse_file($file)
-{
+function parse_file($file) {
+
  $file=trim($file);
  $ext='.pro';
  $wild='*';
@@ -148,8 +146,8 @@ function parse_file($file)
  $dfile=str_replace('*','[^\/]*',$dfile);
  $dfile=str_replace('.','\.',$dfile);
  return $dfile;
+ 
 }
-
 /////////////////////////////////////////////////////////////////////
 
 function get_xdoc_files() {
@@ -168,6 +166,8 @@ function get_xdoc_files() {
        }
        
        if (($exists) && ($diff < $hour)) {
+       // alert("Reading from: ".$ssw_list);
+        
         $files=@file($ssw_list);
         $count = count($files);
         if ($count !== 0 && $files !== false) return $files;
@@ -192,21 +192,31 @@ function get_xdoc_files() {
 ////////////////////////////////////////////////////////////////////////////
 
 function extract_files($contents) {
+
   $files=array_map('rem_ext',$contents);
   $files = array_keys(array_flip($files));
   sort($files);
   return $files;
   
 }
+/////////////////////////////////////////////////////////////////////////////
 
+function write_files($contents) {
+
+ $temp_dir=sys_get_temp_dir();   
+ $ssw_list=$temp_dir.'/ssw_list.dat';
+ $files=extract_files($contents);
+ if (is_writable($temp_dir)) {
+  file_put_contents($ssw_list,$files);
+ }
+
+}
 //////////////////////////////////////////////////////////////////////////////
-
-function rem_ext($file)
-{
+function rem_ext($file) {
  return basename($file,".pro\n")."\n";
 }
-////////////////////////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////////////////////
 // find procedure in SSW catalog 
 
 function find_proc($filename) {
