@@ -150,7 +150,7 @@ function parse_file($file) {
 }
 /////////////////////////////////////////////////////////////////////
 
-function get_xdoc_files() {
+function get_xdoc_list() {
       
        $temp_dir=sys_get_temp_dir();   
        $ssw_list=$temp_dir.'/ssw_list.dat';

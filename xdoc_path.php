@@ -14,7 +14,6 @@ require_once './xdoc_lib.php';
 // This script lists all the directories in the SSW tree
 
 $contents=get_xdoc_map();
-get_xdoc_files();
 if (!$contents) exit(1);
 
 if (isset($_POST['gen'])) {

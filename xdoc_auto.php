@@ -9,7 +9,7 @@ exit(1);
 }
 
 $term=$_GET['term'];
-$files=get_xdoc_files();
+$files=get_xdoc_list();
 
 $out=match_files($files,$term);
 
